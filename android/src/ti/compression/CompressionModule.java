@@ -120,8 +120,9 @@ public class CompressionModule extends KrollModule {
 				if (ze.isDirectory()) {
 					ensureDirectoryExists(target);
 				} else {
-					if (overwrite || !new File(target).exists()) {
-						writeOutFile(target, zin);
+					File file = new File(target);
+					if (overwrite || !file.exists()) {
+						writeOutFile(file, target, zin);
 					}
 				}
 			}
@@ -152,8 +153,11 @@ public class CompressionModule extends KrollModule {
 		}
 	}
 
-	private void writeOutFile(String target, ZipInputStream zin)
+	private void writeOutFile(File file, String target, ZipInputStream zin)
 			throws IOException {
+		// Make sure the parent directory exists.
+        file.getParentFile().mkdirs();
+		// Write out the file.
 		int size;
 		byte[] buffer = new byte[2048];
 		FileOutputStream fos = new FileOutputStream(target);
