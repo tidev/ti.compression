@@ -66,7 +66,7 @@ public class CompressionModule extends KrollModule {
 					Util.e("Skipping over file, because it does not exist: "
 							+ file.nativePath());
 				} else {
-					ZipEntry ze = new ZipEntry(file.nativePath());
+					ZipEntry ze = new ZipEntry(file.name());
 					zout.putNextEntry(ze);
 					writeInFile(file, zout);
 					zout.closeEntry();
