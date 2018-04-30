@@ -62,7 +62,7 @@ public class CompressionModule extends KrollModule {
 
 			while (!files.isEmpty()) {
 				TiBaseFile file = files.remove();
-				if (!file.exists()) {
+				if (!file.getNativeFile().exists()) {
 					Util.e("Skipping over file, because it does not exist: "
 							+ file.nativePath());
 				} else {
@@ -101,7 +101,7 @@ public class CompressionModule extends KrollModule {
 		}
 		TiBaseFile zip = TiFileFactory.createTitaniumFile(rawZip,
 				false);
-		if (!zip.exists())
+		if (!zip.getNativeFile().exists())
 			return "archiveFile was not found at " + rawZip + "!";
 
 		Boolean overwrite = (Boolean) args[2];
