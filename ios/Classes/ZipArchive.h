@@ -6,12 +6,6 @@
 //  acsolu@gmail.com
 //  Copyright 2008  Inc. All rights reserved.
 //
-// History: 
-//    09-11-2008 version 1.0    release
-//    10-18-2009 version 1.1    support password protected zip files
-//    10-21-2009 version 1.2    fix date bug
-
-#define ZipArchive TiCompressionZipArchive
 
 #import <UIKit/UIKit.h>
 

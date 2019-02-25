@@ -195,7 +195,7 @@ static const int kAutoReleaseInterval = 100;
 		
 		int n, cnt, successCount=0;
 		NSAutoreleasePool* pool = nil;
-		for (n=0,cnt=[fileArray count]; n<cnt; ++n) {
+		for (n=0,cnt=(int)[fileArray count]; n<cnt; ++n) {
 			if ((n % kAutoReleaseInterval) == 0) {
 				[pool drain];
 				pool = [[NSAutoreleasePool alloc] init];
