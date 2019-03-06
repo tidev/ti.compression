@@ -20,8 +20,4 @@
 //
 // How to add a compiler define:
 //
-// OTHER_CFLAGS=$(inherited) -DFOO=1
-//
-//
-// IMPORTANT NOTE: always use $(inherited) in your overrides
-// 
+OTHER_LDFLAGS=$(inherited) -lz -licucore

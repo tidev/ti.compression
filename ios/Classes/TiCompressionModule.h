@@ -4,12 +4,11 @@
  * Please see the LICENSE included with this distribution for details.
  */
 
-#import <Foundation/Foundation.h>
 #import "TiModule.h"
 #import "ZipArchive.h"
+#import <Foundation/Foundation.h>
 
-@interface TiCompressionModule : TiModule 
-{
+@interface TiCompressionModule : TiModule {
 }
 
 @end
