@@ -164,4 +164,10 @@ public class CompressionModule extends KrollModule
 		bos.flush();
 		bos.close();
 	}
+
+	@Override
+	public String getApiName()
+	{
+		return "Ti.Compression";
+	}
 }
