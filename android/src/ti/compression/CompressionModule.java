@@ -17,21 +17,23 @@ import java.util.LinkedList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
-
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.titanium.io.TiBaseFile;
 import org.appcelerator.titanium.io.TiFileFactory;
 
 @Kroll.module(name = "Compression", id = "ti.compression")
-public class CompressionModule extends KrollModule {
+public class CompressionModule extends KrollModule
+{
 
-	public CompressionModule() {
+	public CompressionModule()
+	{
 		super();
 	}
 
 	@Kroll.method
-	public String zip(Object[] args) {
+	public String zip(Object[] args)
+	{
 		// Check that our arguments are valid.
 		if (args.length != 2) {
 			return "Invalid number of arguments provided!";
@@ -41,8 +43,7 @@ public class CompressionModule extends KrollModule {
 		if (rawZip == null || rawZip.length() == 0) {
 			return "archiveFile was not specified or was empty!";
 		}
-		TiBaseFile zip = TiFileFactory.createTitaniumFile(rawZip,
-				false);
+		TiBaseFile zip = TiFileFactory.createTitaniumFile(rawZip, false);
 
 		Object[] rawFiles = (Object[]) args[1];
 		if (rawFiles == null || rawFiles.length == 0) {
@@ -50,21 +51,18 @@ public class CompressionModule extends KrollModule {
 		}
 		LinkedList<TiBaseFile> files = new LinkedList<TiBaseFile>();
 		for (Object rawFile : rawFiles) {
-			files.add(TiFileFactory.createTitaniumFile(rawFile.toString(),
-			    false));
+			files.add(TiFileFactory.createTitaniumFile(rawFile.toString(), false));
 		}
 
 		// And then zip the files in to the archive.
 		try {
 			OutputStream fout = zip.getOutputStream();
-			ZipOutputStream zout = new ZipOutputStream(
-					new BufferedOutputStream(fout));
+			ZipOutputStream zout = new ZipOutputStream(new BufferedOutputStream(fout));
 
 			while (!files.isEmpty()) {
 				TiBaseFile file = files.remove();
 				if (!file.exists()) {
-					Util.e("Skipping over file, because it does not exist: "
-							+ file.nativePath());
+					Util.e("Skipping over file, because it does not exist: " + file.nativePath());
 				} else {
 					ZipEntry ze = new ZipEntry(file.name());
 					zout.putNextEntry(ze);
@@ -81,7 +79,8 @@ public class CompressionModule extends KrollModule {
 	}
 
 	@Kroll.method
-	public String unzip(Object[] args) {
+	public String unzip(Object[] args)
+	{
 		// Check that our arguments are valid.
 		if (args.length != 3) {
 			return "Invalid number of arguments provided!";
@@ -91,16 +90,13 @@ public class CompressionModule extends KrollModule {
 		if (rawDest == null || rawDest.length() == 0) {
 			return "destinationFolder was not specified or was empty!";
 		}
-		String destPath = TiFileFactory
-				.createTitaniumFile(rawDest, false).getNativeFile()
-				.getAbsolutePath();
+		String destPath = TiFileFactory.createTitaniumFile(rawDest, false).getNativeFile().getAbsolutePath();
 
 		String rawZip = (String) args[1];
 		if (rawZip == null || rawZip.length() == 0) {
 			return "archiveFile was not specified or was empty!";
 		}
-		TiBaseFile zip = TiFileFactory.createTitaniumFile(rawZip,
-				false);
+		TiBaseFile zip = TiFileFactory.createTitaniumFile(rawZip, false);
 		if (!zip.exists())
 			return "archiveFile was not found at " + rawZip + "!";
 
@@ -112,8 +108,7 @@ public class CompressionModule extends KrollModule {
 		// And then unzip the archive.
 		try {
 			InputStream fin = zip.getInputStream();
-			ZipInputStream zin = new ZipInputStream(
-					new BufferedInputStream(fin));
+			ZipInputStream zin = new ZipInputStream(new BufferedInputStream(fin));
 			ZipEntry ze = null;
 			while ((ze = zin.getNextEntry()) != null) {
 				String target = destPath + "/" + ze.getName();
@@ -135,15 +130,16 @@ public class CompressionModule extends KrollModule {
 		}
 	}
 
-	public void ensureDirectoryExists(String target) {
+	public void ensureDirectoryExists(String target)
+	{
 		File f = new File(target);
 		if (!f.isDirectory()) {
 			f.mkdirs();
 		}
 	}
 
-	private void writeInFile(TiBaseFile tifile, ZipOutputStream zout)
-			throws IOException {
+	private void writeInFile(TiBaseFile tifile, ZipOutputStream zout) throws IOException
+	{
 		int size;
 		byte[] buffer = new byte[2048];
 		InputStream fos = tifile.getInputStream();
@@ -153,10 +149,10 @@ public class CompressionModule extends KrollModule {
 		}
 	}
 
-	private void writeOutFile(File file, String target, ZipInputStream zin)
-			throws IOException {
+	private void writeOutFile(File file, String target, ZipInputStream zin) throws IOException
+	{
 		// Make sure the parent directory exists.
-        file.getParentFile().mkdirs();
+		file.getParentFile().mkdirs();
 		// Write out the file.
 		int size;
 		byte[] buffer = new byte[2048];

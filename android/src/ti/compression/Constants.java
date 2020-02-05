@@ -12,5 +12,4 @@ public class Constants
 {
 	public static final String LCAT = "CompressionModule";
 	public static final boolean DBG = TiConfig.LOGD;
-	
 }
