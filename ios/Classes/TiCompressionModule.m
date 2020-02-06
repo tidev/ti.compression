@@ -1,6 +1,6 @@
 /**
  * Ti.Compression Module
- * Copyright (c) 2010-2013 by Appcelerator, Inc. All Rights Reserved.
+ * Copyright (c) 2010-2020 by Appcelerator, Inc. All Rights Reserved.
  * Please see the LICENSE included with this distribution for details.
  */
 
@@ -14,18 +14,26 @@
 #pragma mark Internal
 
 // this is generated for your module, please do not change it
-- (id)moduleGUID {
+- (id)moduleGUID
+{
   return @"c129f5f7-ace8-4cca-be47-b226f8b29f78";
 }
 
 // this is generated for your module, please do not change it
-- (NSString *)moduleId {
+- (NSString *)moduleId
+{
   return @"ti.compression";
+}
+
+- (NSString *)apiName
+{
+  return @"Ti.Compression";
 }
 
 #pragma mark Lifecycle
 
-- (void)startup {
+- (void)startup
+{
   // this method is called when the module is first loaded
   // you *must* call the superclass
   [super startup];
@@ -33,7 +41,8 @@
   NSLog(@"[INFO] %@ loaded", self);
 }
 
-- (void)shutdown:(id)sender {
+- (void)shutdown:(id)sender
+{
   // this method is called when the module is being unloaded
   // typically this is during shutdown. make sure you don't do too
   // much processing here or the app will be quit forceably
@@ -44,14 +53,16 @@
 
 #pragma mark Cleanup
 
-- (void)dealloc {
+- (void)dealloc
+{
   // release any resources that have been retained by the module
   [super dealloc];
 }
 
 #pragma mark Internal Memory Management
 
-- (void)didReceiveMemoryWarning:(NSNotification *)notification {
+- (void)didReceiveMemoryWarning:(NSNotification *)notification
+{
   // optionally release any resources that can be dynamically
   // reloaded once memory is available - such as caches
   [self fireEvent:@"lowmemory"];
@@ -60,7 +71,8 @@
 
 #pragma mark Helper Methods
 
-- (NSString *)getNormalizedPath:(NSString *)source {
+- (NSString *)getNormalizedPath:(NSString *)source
+{
   // NOTE: File paths may contain URL prefix as of release 1.7 of the SDK
   if ([source hasPrefix:@"file:/"]) {
     NSURL *url = [NSURL URLWithString:source];
@@ -76,7 +88,8 @@
 
 #pragma mark Public APIs
 
-- (id)unzip:(id)args {
+- (id)unzip:(id)args
+{
   // unzip API requires 3 parameters:
   //   location:string - folder location to unzip the files
   //   filename:string - path to the zip file
@@ -142,7 +155,8 @@
 static const int kAutoReleaseInterval = 100;
 
 // Create a zip file
-- (id)zip:(id)args {
+- (id)zip:(id)args
+{
   // zip API requires 2 parameters:
   //   filename:string - path to the zip file to create
   //   filearray:arrray - array of file paths to add to the zip

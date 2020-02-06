@@ -1,0 +1,35 @@
+---
+name: Modules.Compression
+extends: Titanium.Module
+summary: Lets you zip and unzip files
+platforms: [android, iphone, ipad]
+methods:
+  - name: zip
+    summary: Compresses all of the files you pass in "fileArray" to the specified "archiveFile".
+    parameters:
+      - name: archiveFile
+        type: String
+        summary: The path to the archive file to create
+      - name: fileArray
+        type: Array<String>
+        summary: An array of files to compress
+    returns:
+      type: String
+      summary: Returns the string "success" if the operation succeeded, or an error message if something went wrong.
+
+  - name: unzip
+    summary: Extracts the files in the archive file into the destination folder, optionally overriding existing files.
+    parameters:
+      - name: destinationFolder
+        type: String
+        summary: The destination folder for the extracted files
+      - name: archiveFile
+        type: String
+        summary: The path to an existing compressed archive file
+      - name: overwrite
+        type: Boolean
+        summary: Indicates if existing files should be overwritten
+    returns:
+      type: String
+      summary: Returns the string "success" if the operation succeeded, or an error message if something went wrong.
+  
