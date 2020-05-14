@@ -73,8 +73,99 @@ describe('ti.compression', () => {
 				expect(file.exists()).toBeTrue();
 				expect(file.size).toEqual(zipFileSize);
 			});
+
+			describe('##zip() with invalid values', () => {
+
+				it('fails on invalid zip file destination', () => {
+					var result = Compression.zip('', [ Ti.Filesystem.resourcesDirectory + '/a.txt' ]);
+
+					expect(result).not.toEqual('success');
+				});
+
+				if (ANDROID) {
+					it('fails on no file to zip input', () => {
+						var result = Compression.zip(Ti.Filesystem.applicationDataDirectory + '/test.zip', [ '' ]);
+
+						expect(result).not.toEqual('success');
+					});
+				}
+
+			});
+
+			describe('##unzip() with invalid values', () => {
+
+				it('fails on invalid zip file input', () => {
+					var result = Compression.unzip(Ti.Filesystem.applicationDataDirectory + 'data',	'',	true);
+
+					expect(result).not.toEqual('success');
+				});
+
+				if (ANDROID) {
+					it('fails on invalid unzip destination', () => {
+						var result = Compression.unzip(null, Ti.Filesystem.applicationDataDirectory + '/test.zip', true);
+
+						expect(result).not.toEqual('success');
+					});
+					it('fails on overwrite not provided', () => {
+						var result = Compression.unzip(null, Ti.Filesystem.applicationDataDirectory + '/test.zip');
+
+						expect(result).not.toEqual('success');
+					});
+				}
+			});
 		});
 
-		// TODO: do roundtrip of zip and unzip and compare extracted contents versus initial?
+		describe('#roundtrip zip and unzip', () => {
+
+			const aTxt = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory + '/a.txt');
+			const bTxt = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory + '/b.txt');
+			const zipFileName = Ti.Filesystem.applicationDataDirectory + '/test.zip';
+
+			const dataFolder = Ti.Filesystem.applicationDataDirectory + 'data';
+
+			it('fize size to be same', () => {
+
+				Compression.zip(zipFileName,
+					[
+						Ti.Filesystem.resourcesDirectory + '/a.txt',
+						Ti.Filesystem.resourcesDirectory + '/b.txt',
+					]
+				);
+
+				Compression.unzip(
+					dataFolder,
+					zipFileName,
+					true
+				);
+
+				let afterUnzipaTxt = Ti.Filesystem.getFile(dataFolder, 'a.txt');
+				let afterUnzipbTxt = Ti.Filesystem.getFile(dataFolder, 'b.txt');
+
+				expect(aTxt.size).toEqual(afterUnzipaTxt.size);
+				expect(bTxt.size).toEqual(afterUnzipbTxt.size);
+			});
+
+			it('compare extracted contents versus initial', () => {
+
+				Compression.zip(zipFileName,
+					[
+						Ti.Filesystem.resourcesDirectory + '/a.txt',
+						Ti.Filesystem.resourcesDirectory + '/b.txt',
+					]
+				);
+
+				Compression.unzip(
+					dataFolder,
+					zipFileName,
+					true
+				);
+
+				let afterUnzipaTxt = Ti.Filesystem.getFile(dataFolder, 'a.txt');
+				let afterUnzipbTxt = Ti.Filesystem.getFile(dataFolder, 'b.txt');
+
+				expect(Ti.Utils.md5HexDigest(aTxt.read().text)).toEqual(Ti.Utils.md5HexDigest(afterUnzipaTxt.read().text));
+				expect(Ti.Utils.md5HexDigest(bTxt.read().text)).toEqual(Ti.Utils.md5HexDigest(afterUnzipbTxt.read().text));
+			});
+		});
 	});
 });
