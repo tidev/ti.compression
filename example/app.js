@@ -36,10 +36,10 @@ var zipFiles2 = Ti.UI.createButton({
 zipFiles.addEventListener('click', function() {
 	var startTime = new Date();
 	var writeToZip = outputDirectory + '/zipFiles.zip';
-  var file = Ti.Filesystem.getFile(writeToZip);
-  if (file.exists()) {
-    file.deleteFile();
-  }
+	var file = Ti.Filesystem.getFile(writeToZip);
+	if (file.exists()) {
+		file.deleteFile();
+	}
 	var result = Compression.zip(writeToZip, [
 		inputDirectory + 'a.txt',
 		inputDirectory + 'b.txt',
@@ -69,10 +69,10 @@ zipFiles.addEventListener('click', function() {
 zipFiles2.addEventListener('click', function() {
 	var writeToZip = outputDirectory + '/zipFiles.zip';
 
-  var file = Ti.Filesystem.getFile(writeToZip);
-  if (file.exists()) {
-    file.deleteFile();
-  }
+	var file = Ti.Filesystem.getFile(writeToZip);
+	if (file.exists()) {
+		file.deleteFile();
+	}
 	var startTime = new Date();
 	var result = Compression.zip(writeToZip, [
 		inputDirectory + 'a.txt',
@@ -88,8 +88,7 @@ zipFiles2.addEventListener('click', function() {
 		inputDirectory + 'icon2.png',
 		inputDirectory + 'icon3.png'
 	], {
-		compression: Compression.BEST_SPEED,
-		optimizeStorage: true
+		compression: Compression.BEST_SPEED
 	});
 	Ti.API.info(status.text = 'Zip Files: ' + result + ', to: ' + writeToZip);
 

@@ -62,7 +62,7 @@ See example for more details.
 ## zip Parameter
 
 Android:
-* filename:String, files:Array, options: Object [compression: Compression.BEST_SPEED| Compression.DEFAULT_COMPRESSION | Compression.NO_COMPRESSION]
+* filename:String, files:Array, options: Object [compression: Compression.BEST_SPEED | Compression.DEFAULT_COMPRESSION | Compression.NO_COMPRESSION]
 
 iOS:
 * filename:String, files:Array
@@ -84,10 +84,6 @@ dd if=/dev/urandom of=file1 bs=5M count=1
 ## Author
 
 Clint Tredway
-
-## Feedback and Support
-
-Please direct all questions, feedback, and concerns to [info@appcelerator.com](mailto:info@appcelerator.com?subject=iOS%20Compression%20Module).
 
 ## License
 
