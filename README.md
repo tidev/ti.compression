@@ -56,15 +56,34 @@ To extract an archive:
 var result = Ti.Compression.unzip(Ti.Filesystem.applicationDataDirectory + 'data', 'test.zip', true);
 ```
 
+
 See example for more details.
+
+## zip Parameter
+
+Android:
+* filename:String, files:Array, options: Object [compression: Compression.BEST_SPEED | Compression.DEFAULT_COMPRESSION | Compression.NO_COMPRESSION]
+
+iOS:
+* filename:String, files:Array
+
+## Create demo files
+
+Create demo files
+
+good compression (no content)
+```bash
+truncate -s 5M file1.dat
+```
+
+Bad compression (random content)
+```bash
+dd if=/dev/urandom of=file1 bs=5M count=1
+```
 
 ## Author
 
 Clint Tredway
-
-## Feedback and Support
-
-Please direct all questions, feedback, and concerns to [info@appcelerator.com](mailto:info@appcelerator.com?subject=iOS%20Compression%20Module).
 
 ## License
 
